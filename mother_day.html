@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>母亲节快乐</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #fff0f5;
+      font-family: "微软雅黑", sans-serif;
+      overflow-x: hidden;
+    }
+
+    .container {
+      text-align: center;
+      padding: 80px 20px;
+      animation: fadeIn 2s ease-in;
+    }
+
+    h1 {
+      color: #e91e63;
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 24px;
+      color: #555;
+    }
+
+    .heart {
+      font-size: 60px;
+      color: #e91e63;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #backTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #e91e63;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="heart">❤</div>
+    <h1>妈妈，母亲节快乐！</h1>
+    <p>感谢您无私的爱与支持。</p>
+    <p>愿您永远健康、美丽、快乐。</p>
+    <p style="margin-top: 40px; font-style: italic;">—— 您的孩子</p>
+  </div>
+
+  <button id="backTop" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">↑</button>
+
+  <!-- 飘花特效 -->
+  <script>
+    const createFlower = () => {
+      const flower = document.createElement('div');
+      flower.innerText = '❀';
+      flower.style.position = 'fixed';
+      flower.style.left = Math.random() * window.innerWidth + 'px';
+      flower.style.top = '-30px';
+      flower.style.fontSize = Math.random() * 24 + 16 + 'px';
+      flower.style.color = '#e91e63';
+      flower.style.opacity = Math.random();
+      flower.style.zIndex = 9999;
+      document.body.appendChild(flower);
+
+      let fallSpeed = 1 + Math.random() * 2;
+      let left = parseFloat(flower.style.left);
+
+      const fall = () => {
+        const top = parseFloat(flower.style.top);
+        if (top > window.innerHeight) {
+          flower.remove();
+        } else {
+          flower.style.top = top + fallSpeed + 'px';
+          flower.style.left = left + Math.sin(top / 50) * 2 + 'px';
+          requestAnimationFrame(fall);
+        }
+      };
+      fall();
+    };
+
+    setInterval(createFlower, 300);
+
+    // 返回顶部按钮控制
+    window.addEventListener('scroll', () => {
+      document.getElementById('backTop').style.display =
+        window.scrollY > 200 ? 'block' : 'none';
+    });
+  </script>
+
+</body>
+</html>
